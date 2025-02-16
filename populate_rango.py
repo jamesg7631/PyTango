@@ -5,7 +5,8 @@ os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'tango_with_django_project.setti
 django.setup()
 
 from rango.models import Category, Page
-
+import random
+random.seed(10)
 
 
 def populate():
@@ -54,6 +55,11 @@ def populate():
     other_frameworks_cat.views = 32
     other_frameworks_cat.likes = 16
     other_frameworks_cat.save()
+
+    random.seed(10)
+    for p in Page.objects.all():
+        p.views = random.randint(1, 1000)
+        p.save()
 
     for c in Category.objects.all():
         for p in Page.objects.filter(category=c):
